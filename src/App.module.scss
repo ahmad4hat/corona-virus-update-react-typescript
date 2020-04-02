@@ -1,0 +1,16 @@
+.Header {
+  height: 4rem;
+  text-align: center;
+  display: block;
+  &__Text {
+    font-size: 3rem;
+    background-color: #e2e2e2;
+  }
+}
+
+.SimpleCountryDetailsContainer {
+  display: grid;
+  margin: 2rem;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+}
