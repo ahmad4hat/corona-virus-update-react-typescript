@@ -1,4 +1,5 @@
 import { createSlice, combineReducers, PayloadAction } from "@reduxjs/toolkit";
+import { CountryDetails } from "../type/type";
 
 const selectedCountrySlice = createSlice({
   name: "selectedCountry",
@@ -20,3 +21,21 @@ const isLoadingSlice = createSlice({
   }
 });
 
+const countriesSliceInitState: CountryDetails[] = [];
+
+const countriesSlice = createSlice({
+  name: "countries",
+  initialState: countriesSliceInitState,
+  reducers: {
+    updatedCountry: (state, payload) => {
+      console.log(payload);
+      return state;
+    }
+  }
+});
+
+const reducers = combineReducers({
+  selectedCountry: selectedCountrySlice.reducer,
+  isLoading: isLoadingSlice.reducer,
+  countries: countriesSlice.reducer
+});
