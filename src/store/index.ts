@@ -1,4 +1,10 @@
-import { createSlice, combineReducers, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  combineReducers,
+  PayloadAction,
+  configureStore,
+  getDefaultMiddleware
+} from "@reduxjs/toolkit";
 import { CountryDetails } from "../type/type";
 
 const selectedCountrySlice = createSlice({
@@ -11,7 +17,7 @@ const selectedCountrySlice = createSlice({
 });
 
 const isLoadingSlice = createSlice({
-  name: "selectedCountry",
+  name: "isLoading",
   initialState: false,
   reducers: {
     changeLoading: (
@@ -27,9 +33,11 @@ const countriesSlice = createSlice({
   name: "countries",
   initialState: countriesSliceInitState,
   reducers: {
-    updatedCountry: (state, payload) => {
-      console.log(payload);
-      return state;
+    updatedCountry: (
+      state,
+      { payload }: PayloadAction<{ countries: CountryDetails[] }>
+    ) => {
+      state = payload.countries;
     }
   }
 });
@@ -38,4 +46,11 @@ const reducers = combineReducers({
   selectedCountry: selectedCountrySlice.reducer,
   isLoading: isLoadingSlice.reducer,
   countries: countriesSlice.reducer
+});
+
+export const { changeLoading: changeLoadingGlobal } = isLoadingSlice.actions;
+
+export default configureStore({
+  reducer: reducers,
+  middleware: getDefaultMiddleware()
 });

@@ -7,7 +7,7 @@ export interface DayDetails {
 export interface CountryDetails {
   totalDeath: number;
   totalRecovered: number;
-  totalRecovered: number;
+  totalConfirmed: number;
   countryName: string;
   dayDetails: DayDetails[];
 }

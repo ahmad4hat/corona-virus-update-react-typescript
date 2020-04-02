@@ -1,8 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getInitDetails } from "./store/asyncActions/index";
+import logo from "./logo.svg";
 
-function App() {
+import "./App.css";
+
+const App: React.FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInitDetails());
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +28,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
