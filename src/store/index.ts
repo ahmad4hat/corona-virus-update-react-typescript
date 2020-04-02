@@ -5,6 +5,7 @@ import {
   configureStore,
   getDefaultMiddleware
 } from "@reduxjs/toolkit";
+import  thunk from 'redux-thunk'
 import { CountryDetails } from "../type/type";
 
 const selectedCountrySlice = createSlice({
@@ -33,12 +34,10 @@ const countriesSlice = createSlice({
   name: "countries",
   initialState: countriesSliceInitState,
   reducers: {
-    updatedCountry: (
+    updatedCountries: (
       state,
       { payload }: PayloadAction<{ countries: CountryDetails[] }>
-    ) => {
-      state = payload.countries;
-    }
+    ) => {console.log( payload.countries)}
   }
 });
 
@@ -49,8 +48,9 @@ const reducers = combineReducers({
 });
 
 export const { changeLoading: changeLoadingGlobal } = isLoadingSlice.actions;
+export const {updatedCountries:updatedCountriesDetails}=countriesSlice.actions  
 
 export default configureStore({
   reducer: reducers,
-  middleware: getDefaultMiddleware()
+  middleware: [thunk]
 });
