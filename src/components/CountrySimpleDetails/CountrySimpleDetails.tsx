@@ -1,24 +1,28 @@
 import React from "react";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated, interpolate } from "react-spring";
 import { CountryDetails } from "./../../type/type";
 import CSS from "./CountrySimpleDetails.module.scss";
 
 const CountrySimpleDetails = (props: any) => {
   const country: CountryDetails = props.country;
   const [divStyle, setDivStyle] = useSpring(() => ({
-    opacity: 0.5,
-    width: "80%"
-    //transform: "scale(0.6)"
+    opacity: 0.8,
+    scaleFactor: 1,
+    //transform: "scale(0.6)",
   }));
 
   return (
     <animated.div
       className={CSS.Container}
-      style={divStyle}
-      onMouseMove={x => {
-        setDivStyle({ opacity: 1 , width: "100%"});
+      style={{
+        opacity: divStyle.opacity,
+        transform: divStyle.scaleFactor.interpolate((w) => `scale( ${w})`),
+      }}
+      onMouseMove={(x) => {
+        setDivStyle({ opacity: 1, scaleFactor: 1.1 });
         //setDivStyle({ transform: "scale (1)" });
       }}
+      onMouseLeave={(x) => setDivStyle({ opacity: 0.8, scaleFactor: 1 })}
     >
       <h2 className={CSS.Header}>{country.countryName}</h2>
       <p className={CSS.Text}>
