@@ -11,6 +11,7 @@ import OneCountryDetails from "./containers/OneCountryDetails/OneCountryDetails"
 
 const App = (props: any) => {
   const countries = useSelector((state: State) => state.countries);
+  const isLoading = useSelector((state: State) => state.isLoading);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,7 +28,12 @@ const App = (props: any) => {
           exact
           render={(props) => <AllCountryMiniDetails {...props} />}
         />
-        <Route path="/:countryName" component={OneCountryDetails}></Route>
+        <Route
+          path="/:countryName"
+          render={() =>
+            isLoading ? <div>loading</div> : <OneCountryDetails />
+          }
+        ></Route>
       </BrowserRouter>
     </div>
   );
