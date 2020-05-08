@@ -2,8 +2,10 @@ import React from "react";
 import { useSpring, animated, interpolate } from "react-spring";
 import { CountryDetails } from "./../../type/type";
 import CSS from "./CountrySimpleDetails.module.scss";
+import { useHistory } from "react-router-dom";
 
 const CountrySimpleDetails = (props: any) => {
+  const history = useHistory();
   const country: CountryDetails = props.country;
   const [divStyle, setDivStyle] = useSpring(() => ({
     opacity: 0.8,
@@ -13,6 +15,7 @@ const CountrySimpleDetails = (props: any) => {
 
   return (
     <animated.div
+      onClick={() => history.push("/" + country.countryName)}
       className={CSS.Container}
       style={{
         opacity: divStyle.opacity,

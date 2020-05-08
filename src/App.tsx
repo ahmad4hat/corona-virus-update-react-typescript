@@ -4,8 +4,12 @@ import { getInitDetails } from "./store/asyncActions/index";
 import CountrySimpleDetails from "./components/CountrySimpleDetails/CountrySimpleDetails";
 import { State } from "./type/type";
 import CSS from "./App.module.scss";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-const App: React.FC = () => {
+import AllCountryMiniDetails from "./containers/AllCountryMiniDetails/AllCountryMiniDetails";
+import OneCountryDetails from "./containers/OneCountryDetails/OneCountryDetails";
+
+const App = (props: any) => {
   const countries = useSelector((state: State) => state.countries);
 
   const dispatch = useDispatch();
@@ -17,14 +21,14 @@ const App: React.FC = () => {
       <div className={CSS.Header}>
         <h1 className={CSS.Header__Text}>Corona Virus Update</h1>
       </div>
-      <div className={CSS.SimpleCountryDetailsContainer}>
-        {countries.map(country => (
-          <CountrySimpleDetails
-            country={country}
-            key={country.countryName}
-          ></CountrySimpleDetails>
-        ))}
-      </div>
+      <BrowserRouter>
+        <Route
+          path="/"
+          exact
+          render={(props) => <AllCountryMiniDetails {...props} />}
+        />
+        <Route path="/:countryName" component={OneCountryDetails}></Route>
+      </BrowserRouter>
     </div>
   );
 };

@@ -9,6 +9,16 @@ export const getInitDetails = () => async (dispatch: any) => {
       "https://pomber.github.io/covid19/timeseries.json"
     );
 
+    // try {
+    //   const test = await axios.post("http://localhost:8000/devices/", {
+    //     name: "ganja",
+    //   });
+    //   console.log("-----");
+    //   console.log(test);
+    // } catch (error) {
+    //   console.log(error.response);
+    // }
+
     const countryDetails: CountryDetails[] = [];
     for (let key in data) {
       let totalDeath = 0;
@@ -21,7 +31,7 @@ export const getInitDetails = () => async (dispatch: any) => {
           date: new Date(dd.date),
           deaths: dd.deaths,
           recovered: dd.recovered,
-          confirmed: dd.confirmed
+          confirmed: dd.confirmed,
         };
         dayDetails.push(singleday);
 
@@ -34,7 +44,7 @@ export const getInitDetails = () => async (dispatch: any) => {
         totalDeath,
         totalRecovered,
         countryName,
-        dayDetails
+        dayDetails,
       };
       countryDetails.push(countryDetail);
     }
